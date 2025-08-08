@@ -14,7 +14,8 @@ CREATE  TABLE  BOARD (
 INSERT INTO BOARD (IDX, MENU_ID, TITLE, CONTENT, WRITER)
  VALUES (
    ( SELECT NVL(MAX(IDX),0)+1 FROM BOARD  )
-   , 'MENU01', '반갑습니다', '인사드립니다', 'ADMIN');
+   , 'MENU01', '반갑습니다', '인사드립니다', 'ADMIN');   
 COMMIT;  
 
 select * from board;
+                  
