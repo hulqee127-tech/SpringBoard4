@@ -32,7 +32,7 @@
 					<hr />
 					<a href="/Board/boardList?menu_id=MENU01">게시글목록</a>
 					||
-					<a href="/Board/WriteForm">게시글추가</a>
+					<a href="/Board/WriteForm?menu_id=MENU01">게시글추가</a>
 				</main>
 			</td>
 			<td>

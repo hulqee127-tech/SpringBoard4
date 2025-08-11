@@ -45,7 +45,7 @@
 		<!-- 메뉴 리스트 -->
 		<%@include file="/WEB-INF/include/top_menus.jsp" %>
 		
-		<h2>${menuDto.menu_name} 게시물 목록&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2>
+		<h2>[${menuDto.menu_name}] 게시물 목록&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2>
 
 		<!-- 게시물 목록 -->
 		<table>
@@ -69,7 +69,7 @@
 			<c:forEach var="board" items="${boardList}">		<!-- JSTL 문법 -->
 			<tr>
 				<td>${ board.idx     }</td>	<!-- Expression Langauge => EL el문법 -->
-				<td><a href="/Board/View?idx=${ board.idx }">${ board.title   }</a></td>
+				<td><a href="/Board/boardView?idx=${ board.idx }">${ board.title   }</a></td>
 				<td>${ board.writer  }</td>
 				<td>${ board.regdate }</td>
 				<td>${ board.hit     }</td>
