@@ -66,6 +66,57 @@ public class BoardController {
 		return mv;
 	}
 	
+	@RequestMapping("/Board/boardView")
+	public ModelAndView boardView(BoardDTO boardDto) {
+		// 메뉴 리스트
+		List<MenuDTO> menuList = menuMapper.getMenuList();
+		
+		boardDto = boardMapper.getBoardData(boardDto);
+		
+		//String menu_id = boardDto.getMenu_id();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("boardDto",boardDto);
+		mv.setViewName("board/boardView");
+		return mv;
+	}
+	
+	@RequestMapping("/Board/updateForm")
+	public ModelAndView updateView(BoardDTO boardDto) {
+		// 메뉴 리스트
+		List<MenuDTO> menuList = menuMapper.getMenuList();
+		
+		boardDto = boardMapper.getBoardData(boardDto);
+		
+		//String menu_id = boardDto.getMenu_id();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("boardDto",boardDto);
+		mv.setViewName("board/updateForm");
+		return mv;
+	}
+	
+	@RequestMapping("/Board/Update")
+	public ModelAndView update(BoardDTO boardDto) {
+		boardMapper.updateBoard(boardDto);
+		String menu_id = boardDto.getMenu_id();
+		int idx = boardDto.getIdx();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/Board/boardView?idx="+idx);
+		return mv;
+	}
+	
+	@RequestMapping("/Board/Delete")
+	public ModelAndView delete(BoardDTO boardDto) {
+		String menu_id = boardDto.getMenu_id();
+		System.out.println(menu_id);
+		boardMapper.deleteBoard(boardDto);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/Board/boardList?menu_id="+menu_id);
+		return mv;
+	}
 	/*
 	@RequestMapping("/Board/boardList")
 	public String boardList(Model model) {

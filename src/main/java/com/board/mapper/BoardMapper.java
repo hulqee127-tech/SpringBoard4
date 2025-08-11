@@ -15,6 +15,12 @@ public interface BoardMapper {
 
 	void insertBoard(BoardDTO boardDto);
 
+	BoardDTO getBoardData(BoardDTO boardDto);
+
+	void updateBoard(BoardDTO boardDto);
+	
+	void deleteBoard(BoardDTO boardDto);
+
 //	List<BoardDTO> getCategoryData();
 
 }
