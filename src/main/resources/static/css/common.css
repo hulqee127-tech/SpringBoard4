@@ -22,6 +22,7 @@ table, th, td {
 
 table {
 	width:100%;
+	table-layout : fixed;
 }
 th, td{
 	padding:10px;
@@ -33,9 +34,20 @@ main{
 
 h2{
 	margin:20px;
+	text-align:center;
 }
 
 #table1 , th , td {
 	border:1;
 	width:45%;
+}
+#menu a {
+	color : green;
+	font-weight : bold;
+}
+
+#menu td {
+	background-color : gray;
+	border-color : cyan;
+	layout : fixed;
 }

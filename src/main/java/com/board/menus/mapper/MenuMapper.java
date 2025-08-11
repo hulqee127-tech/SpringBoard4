@@ -22,5 +22,7 @@ public interface MenuMapper {
 	MenuDTO getUpdateData(MenuDTO menuDto);
 
 	void updateMenu(MenuDTO menuDto);
+
+	//MenuDTO getMenu(MenuDTO menuDto);
 	
 }

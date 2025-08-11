@@ -29,6 +29,10 @@
 					<a href="/Users/userList">사용자목록</a>
 					||
 					<a href="/Users/WriteForm">사용자추가</a>
+					<hr />
+					<a href="/Board/boardList?menu_id=MENU01">게시글목록</a>
+					||
+					<a href="/Board/WriteForm">게시글추가</a>
 				</main>
 			</td>
 			<td>

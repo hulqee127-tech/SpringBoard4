@@ -6,33 +6,83 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.board.domain.BoardDTO;
 import com.board.mapper.BoardMapper;
+import com.board.menus.domain.MenuDTO;
+import com.board.menus.mapper.MenuMapper;
 
 @Controller
 public class BoardController {
 
 	@Autowired
+	private MenuMapper menuMapper;
+	@Autowired
 	private BoardMapper boardMapper;
 	
 	@RequestMapping("/Board/boardList")
-	public String list(Model model) {
+	public ModelAndView list(MenuDTO menuDto) {
+		// 메뉴 리스트
+		List<MenuDTO> menuList = menuMapper.getMenuList();
+		
+		// 게시물 리스트
+		List<BoardDTO> boardList = boardMapper.getBoardList(menuDto);
+		
+		menuDto = menuMapper.getUpdateData(menuDto);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("menuList",menuList);
+		mv.addObject("menuDto",menuDto);
+//		mv.addObject("menu_id",menu_id);
+		mv.addObject("boardList",boardList);
+		mv.setViewName("board/boardList");
+		return mv;
+	}
+	
+	@RequestMapping("/Board/WriteForm")
+	public ModelAndView writeForm(MenuDTO menuDto, Model model) {
+		// 메뉴 리스트
+		List<MenuDTO> menuList = menuMapper.getMenuList();
+		menuDto = menuMapper.getUpdateData(menuDto);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("menuList",menuList);
+		mv.addObject("menuDto",menuDto);
+		mv.setViewName("board/writeForm");
+		return mv;
+		//List<BoardDTO> categoryData = boardMapper.getCategoryData();
+		//model.addAttribute("categoryData", categoryData);
+		//return "board/writeForm";	//WEB-INF/views/board/writeForm.jsp
+	}
+	
+	@RequestMapping("/Board/Write")
+	public ModelAndView write(BoardDTO boardDto) {
+		boardMapper.insertBoard(boardDto);
+		
+		String menu_id = boardDto.getMenu_id();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/Board/boardList?menu_id="+menu_id);
+		return mv;
+	}
+	
+	/*
+	@RequestMapping("/Board/boardList")
+	public String boardList(Model model) {
 		
 		List<BoardDTO> boardList = boardMapper.getBoardList();
 		System.out.println(boardList);
 
 		model.addAttribute("boardList", boardList);
 		
-		return "menus/menuList";	//WEB-INF/views/menus/list.jsp
+		return "board/boardList";	//WEB-INF/views/board/list.jsp
 	}
 	
-	/*
-	@RequestMapping("/Menus/WriteForm")
-	public String writeForm(MenuDTO menuDto, Model model) {
-		MenuDTO insertData = menuMapper.getInsertData(menuDto);
-		model.addAttribute("insertData", insertData);
-		return "menus/writeForm";	//WEB-INF/views/menus/writeForm.jsp
+	@RequestMapping("/Board/WriteForm")
+	public String writeForm(BoardDTO boardDto, Model model) {
+		List<BoardDTO> categoryData = boardMapper.getCategoryData();
+		model.addAttribute("categoryData", categoryData);
+		return "board/writeForm";	//WEB-INF/views/board/writeForm.jsp
 	}
 	
 	@RequestMapping("/Menus/Write")

@@ -9,6 +9,14 @@ public class BoardDTO {
 	private String regdate;
 	private int    hit;
 	
+	private String menu_name;
+	
+	public String getMenu_name() {
+		return menu_name;
+	}
+	public void setMenu_name(String menu_name) {
+		this.menu_name = menu_name;
+	}
 	public int getIdx() {
 		return idx;
 	}
@@ -52,7 +60,7 @@ public class BoardDTO {
 		this.hit = hit;
 	}
 	public BoardDTO() {}
-	public BoardDTO(int idx, String menu_id, String title, String content, String writer, String regdate, int hit) {
+	public BoardDTO(int idx, String menu_id, String title, String content, String writer, String regdate, int hit, String menu_name) {
 		this.idx = idx;
 		this.menu_id = menu_id;
 		this.title = title;
@@ -60,6 +68,7 @@ public class BoardDTO {
 		this.writer = writer;
 		this.regdate = regdate;
 		this.hit = hit;
+		this.menu_name = menu_name;
 	}
 	@Override
 	public String toString() {
