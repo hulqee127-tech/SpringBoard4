@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -71,11 +72,15 @@ public class UserController {
 		//return "";
 	}
 	
-	@RequestMapping("/Users/LogIn")
-	public String login_chk(@Param("uid")String uid, @Param("pwd") String pwd) {
-		//List<list> li = userMapper.login_chk(uid, pwd);
-		//System.out.println(li);
-		return"";
+	@PostMapping("/Users/LogIn")
+	public String login(@RequestParam("uid")String uid, @RequestParam("pwd") String pwd) {
+	//public String login(UserDTO userDto) {
+		List<UserDTO> udata = userMapper.login(uid,pwd);
+		System.out.println(udata);
+		
+		
+		
+		return"/";
 	}
 	
 }

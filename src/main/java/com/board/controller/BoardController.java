@@ -71,11 +71,13 @@ public class BoardController {
 		// 메뉴 리스트
 		List<MenuDTO> menuList = menuMapper.getMenuList();
 		
+		//조회수 증가
+		boardMapper.incHit(boardDto);
+		
 		boardDto = boardMapper.getBoardData(boardDto);
 		
-		//String menu_id = boardDto.getMenu_id();
-		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("menuList",menuList);
 		mv.addObject("boardDto",boardDto);
 		mv.setViewName("board/boardView");
 		return mv;
@@ -85,12 +87,13 @@ public class BoardController {
 	public ModelAndView updateView(BoardDTO boardDto) {
 		// 메뉴 리스트
 		List<MenuDTO> menuList = menuMapper.getMenuList();
-		
+		// 게시물 데이터
 		boardDto = boardMapper.getBoardData(boardDto);
 		
 		//String menu_id = boardDto.getMenu_id();
-		
+		//전달
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("menuList",menuList);
 		mv.addObject("boardDto",boardDto);
 		mv.setViewName("board/updateForm");
 		return mv;

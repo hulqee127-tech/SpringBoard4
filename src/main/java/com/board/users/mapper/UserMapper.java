@@ -23,7 +23,7 @@ public interface UserMapper {
 
 	void updateUser(UserDTO userDto);
 
-	void login_chk(@Param("uid") String uid,@Param("pwd") String pwd);
+	List<UserDTO> login(@Param("uid") String uid,@Param("pwd") String pwd);
 	
 	
 }

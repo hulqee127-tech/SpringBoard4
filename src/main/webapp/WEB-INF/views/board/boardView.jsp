@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,31 +9,39 @@
 <link rel="icon" type="image/jpg" href="/img/saitama.jpg" />
 <link rel="stylesheet" href="/css/common.css" />
 <style>
-	td {
-		padding : 10px;
+	#viewForm{
 		text-align : center;
-	}
 	
-	td:nth-of-type(1) {
-		width : 200px;
-	}
-	/*
-	input[type="text"], input[type="number"] {
-		width : 100%;
-	}
-	*/
-	input {
-		width : 100%;
-		align : left;
-	}
-	input[type="submit"] {
-		width : 100px;
-	}
-	table {
-		width:100%;
-		
-	}
+		tr td {
+			border-color : gray;
+			border : 1px solid gray;
+		}
+		td:nth-of-type(1) {
+			width : 20%;
+			background-color : gray;
+			border-color:cyan;
+		}
+		td:nth-of-type(2) {
+			text-align:left;
+			width : 30%;
+		}
+		td:nth-of-type(3) {
+			width : 20%;
+			background-color : gray;
+			border-color:cyan;
+		}
+		td:nth-of-type(4) {
+			width : 30%;
+		}
+		input[type="button"] {
+			width : 100px;
+		}
+		td[colspan="4"]{
+			background-color:black;
+			border-color:gray;
+		}
 	
+	}
 </style>
 </head>
 <body bgcolor="black" style = "color:white">
@@ -41,22 +49,26 @@
 		<!-- 메뉴 리스트 -->
 		<%@include file="/WEB-INF/include/top_menus.jsp" %>
 		
-		<%-- <h2>[${menuDto.menu_name}] 새 게시글 추가&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2> --%>
-		<form action="/Board/Write" method="POST">
+		<h2>내용 확인&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2>
+		<form action="/Board/updateForm" method="POST">
 		<input type="hidden" name="menu_id" value="${boardDto.menu_id}" />
-		<input type="hidden" name="idx" value="${menuDto.idx}" />
-			<table>
+		<input type="hidden" name="idx" value="${boardDto.idx}" />
+			<table id="viewForm">
 				<tr>
 					<td>제목</td>
 					<td>${boardDto.title}</td>
+					<td>조회수</td>
+					<td>${boardDto.hit}</td>
 				</tr>
 				<tr>
 					<td>작성자 이름</td>
 					<td>${boardDto.writer}</td>
+					<td>작성일자</td>
+					<td>${boardDto.regdate}</td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td>${boardDto.content}</textarea></td>
+					<td colspan="3">${boardDto.content}</textarea></td>
 				</tr>
 				<!-- tr>
 					<td style="width:20%">제목</td>
@@ -82,7 +94,11 @@
 					<td colspan="3" style="text-align:left"><input type="text" name="writer" value="" style="width:25%;" /></td>
 				</tr-->
 				<tr>
-					<td colspan="2"><a href="/Board/updateForm?idx=${boardDto.idx}">수정</a> | <a href="/Board/Delete?menu_id=${boardDto.menu_id}&idx=${boardDto.idx}">삭제</a></td>
+					<td colspan="4">
+						<input type="button" value="수정" id="Update" />&nbsp;|&nbsp;
+						<input type="button" value="삭제" id="Delete" />&nbsp;|&nbsp;
+						<input type="button" value="목록" id="List" />
+					</td>
 					
 				</tr>
 			</table>
@@ -95,40 +111,29 @@
 	}
 	
 	//const formEl = document.querySelectorAll("form")[0];//form이 2개 이상일 경우 가장 첫번째 form 가져오기
-	const formEl = document.querySelector("form");
-	formEl.addEventListener('submit',function(e){
-		//alert('OK');
-		const inputEl1 = document.querySelector('[name="userid"]');
-		const inputEl2 = document.querySelector('[name="username"]');
-		const inputEl3 = document.querySelector('[name="passwd"]');
-		if(inputEl1.value.trim() == ''){
-			alert('아이디를 입력하세요');
-			inputEl1.focus();
-			e.stopPropagation();	// 이벤트 버블링 방지
-			e.preventDefault();		// 이벤트 취소
-			//return false
-		}else if(inputEl2.value.trim() == ''){
-			alert('이름을 입력하세요');
-			inputEl2.focus();
-			e.stopPropagation();
-			e.preventDefault();
-			//return false
-		}else if(inputEl3.value.trim() == ''){
-			alert('비밀번호를 입력하세요');
-			inputEl3.focus();
-			e.stopPropagation();
-			e.preventDefault();
-			//return false
+	const updateEl = document.getElementById("Update");
+	const formEl = document.querySelectorAll("form")[0];
+	updateEl.onclick = function(){
+		location.href = '/Board/updateForm?idx=${boardDto.idx}';
+		//formEl.submit();
+	}
+	
+	const listEl = document.getElementById("List");
+	listEl.onclick = function(){
+		location.href = '/Board/boardList?menu_id=${boardDto.menu_id}';
+	}
+	
+	const deleteEl = document.getElementById("Delete");
+	deleteEl.onclick = function(e){
+		if(confirm('삭제하시겠습니까? \n 삭제 후 복원 불가능 합니다.')){
+			alert('삭제되었습니다.');
+			location.href = '/Board/Delete?menu_id=${boardDto.menu_id}&idx=${boardDto.idx}';
 		}else{
-			if(confirm('등록하시겠습니까?')){
-				alert('등록되었습니다.');
-			}else{
-				e.stopPropagation();
-				e.preventDefault();
-			}
+			e.stopPropagation();
+			e.preventDefault();
+			return false
 		}
-		
-	})
+	}
 </script>
 </body>
 </html>

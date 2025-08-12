@@ -39,7 +39,7 @@
 				<main>
 					<h2><a onclick="login_chk()">Log-In</a></h2>
 					<hr />
-					<form name="form1" action="Users/LogIn" method="POST">
+					<form name="form1" action="/Users/LogIn" method="POST">
 					ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||<input type="text" name="uid" id="uid" /><br />
 					PASSWD||<input type="password" name="pwd" id="pwd" />
 					</form>

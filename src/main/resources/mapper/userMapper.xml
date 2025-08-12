@@ -39,10 +39,18 @@
 		WHERE USERID = #{userid} 
 	</update>
 	
-	<select id="login_chk" resultType="java.lang.Integer"> 
-		SELECT COUNT(*) AS cnt
-		FROM TUSER 
-		WHERE USERID = #{iud} AND PASSWD = #{pwd}
+	<select id="login" resultType="com.board.users.domain.UserDTO"> 
+		<![CDATA[
+			SELECT USERID, PASSWD, USERNAME, EMAIL, TO_CHAR(UPOINT,'FM9,999,999,999') UPOINT,
+				case
+				    WHEN UPOINT > 2000 THEN 'Gold'
+					WHEN UPOINT BETWEEN 1501 AND 2000 THEN 'Silver'
+				    WHEN UPOINT BETWEEN 1000 AND 1500 THEN 'Bronze'
+				    WHEN UPOINT < 1000 THEN 'Zombie'
+				end GRADE, TO_CHAR(INDATE,'YYYY-MM-DD') INDATE
+			FROM TUSER 
+			WHERE USERID = #{uid} AND PASSWD = #{pwd}
+		]]>
 	</select>
 	<!-- 
 	<select id="getInsertData" resultMap="getInsertMap"> 

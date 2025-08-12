@@ -12,31 +12,29 @@
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script> 
 -->
 <style>
-	td { text-align : center; }
-	tr:first-child {
-		background-color : gray;
-		font-weight : bold;
-		/*  SCSS 문법 - 별로 라이브러리 필요 / 그런데 지금은 됨 / 스타일 안에 스타일을 넣는 방법? */
-		/* 원래는 라이브러리를 링크 걸어서 나와야 하는데 된다 ㅋㅎㅋㅎㅋㅎㅋㅎㅋㅎ */
-		td {
-			border-color : cyan;
+	/*  SCSS 문법 - 별로 라이브러리 필요 / 그런데 지금은 됨 / 스타일 안에 스타일을 넣는 방법? */
+	/* 원래는 라이브러리를 링크 걸어서 나와야 하는데 된다 ㅋㅎㅋㅎㅋㅎㅋㅎㅋㅎ */
+	#listForm {
+		td{
+			padding : 10px;
+			text-align:center;
+		}
+		td:nth-of-type(1) { width : 100px; }	
+		td:nth-of-type(2) { width : 400px; text-align:left; }	
+		td:nth-of-type(3) { width : 100px; }
+		td:nth-of-type(4) { width : 100px; }	
+		td:nth-of-type(5) { width : 100px; }
+		
+		tr:first-child td{
+			text-align:center;
+			background-color : gray;
+			border-color:cyan;
 			color : white;
 		}
+		td[colspan="5"]{
+			text-align : right;
+		}
 	}
-	td[colspan="5"]{
-		text-align : right;
-	}
-	
-	#menu a ,td {
-		color : green;
-		font-weight : bold;
-		
-	}
-	/*
-	tr:first-child td {
-		border-color : white;
-	}
-	*/
 </style>
 </head>
 <body bgcolor="black" style = "color:white">
@@ -48,7 +46,7 @@
 		<h2>[${menuDto.menu_name}] 게시물 목록&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2>
 
 		<!-- 게시물 목록 -->
-		<table>
+		<table id="listForm">
 			<tr>
 				<td>글번호</td>
 				<td>제목</td>
