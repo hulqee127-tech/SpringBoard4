@@ -67,9 +67,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/Board/boardView")
-	public ModelAndView boardView(BoardDTO boardDto) {
+	public ModelAndView boardView(BoardDTO boardDto, MenuDTO menuDto) {
 		// 메뉴 리스트
 		List<MenuDTO> menuList = menuMapper.getMenuList();
+		// 메뉴이름
+		menuDto = menuMapper.getUpdateData(menuDto);
 		
 		//조회수 증가
 		boardMapper.incHit(boardDto);
@@ -78,6 +80,7 @@ public class BoardController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("menuList",menuList);
+		mv.addObject("menuDto",menuDto);
 		mv.addObject("boardDto",boardDto);
 		mv.setViewName("board/boardView");
 		return mv;

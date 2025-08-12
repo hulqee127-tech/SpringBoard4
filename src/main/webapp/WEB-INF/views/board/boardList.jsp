@@ -67,7 +67,7 @@
 			<c:forEach var="board" items="${boardList}">		<!-- JSTL 문법 -->
 			<tr>
 				<td>${ board.idx     }</td>	<!-- Expression Langauge => EL el문법 -->
-				<td><a href="/Board/boardView?idx=${ board.idx }">${ board.title   }</a></td>
+				<td><a href="/Board/boardView?idx=${ board.idx }&menu_id=${board.menu_id}">${ board.title   }</a></td>
 				<td>${ board.writer  }</td>
 				<td>${ board.regdate }</td>
 				<td>${ board.hit     }</td>

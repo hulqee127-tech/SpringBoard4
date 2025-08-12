@@ -22,7 +22,7 @@
 			border-color:cyan;
 		}
 		td:nth-of-type(2) {
-			text-align:left;
+			text-align:center;
 			width : 30%;
 		}
 		td:nth-of-type(3) {
@@ -40,6 +40,9 @@
 			background-color:black;
 			border-color:gray;
 		}
+		td[colspan="3"]{
+			text-align:left;
+		}
 	
 	}
 </style>
@@ -49,14 +52,14 @@
 		<!-- 메뉴 리스트 -->
 		<%@include file="/WEB-INF/include/top_menus.jsp" %>
 		
-		<h2>내용 확인&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2>
+		<h2>[${menuDto.menu_name}]&nbsp;&nbsp;||&nbsp;&nbsp;<a href="http://localhost:9090/">홈</a></h2>
 		<form action="/Board/updateForm" method="POST">
 		<input type="hidden" name="menu_id" value="${boardDto.menu_id}" />
 		<input type="hidden" name="idx" value="${boardDto.idx}" />
 			<table id="viewForm">
 				<tr>
-					<td>제목</td>
-					<td>${boardDto.title}</td>
+					<td>글번호</td>
+					<td>${boardDto.idx}</td>
 					<td>조회수</td>
 					<td>${boardDto.hit}</td>
 				</tr>
@@ -67,8 +70,11 @@
 					<td>${boardDto.regdate}</td>
 				</tr>
 				<tr>
+					<td>제목</td>
+					<td colspan="3">${boardDto.title}</td>
+				</tr><tr>
 					<td>내용</td>
-					<td colspan="3">${boardDto.content}</textarea></td>
+					<td colspan="3">${boardDto.content}</td>
 				</tr>
 				<!-- tr>
 					<td style="width:20%">제목</td>
