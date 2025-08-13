@@ -100,6 +100,7 @@ public class BoardController {
 		mv.addObject("boardDto",boardDto);
 		mv.setViewName("board/updateForm");
 		return mv;
+		
 	}
 	
 	@RequestMapping("/Board/Update")
